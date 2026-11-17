@@ -18,20 +18,25 @@ public class TestUser {
         server.registerUser(hugo);
         server.registerUser(luisa);
 
+        // Hugo sends two messages
         hugo.sendMessage(List.of(luisa), "Hello Luisa!");
         hugo.sendMessage(List.of(luisa), "How are you?");
 
-        assertEquals(
-                "How are you?",
-                hugo.getChatHistory().getLastSentMessage().getContent()
-        );
+        // Verify the last message before undo
+        Message lastMessage =
+                hugo.getChatHistory().getLastSentMessage();
 
+        assertNotNull(lastMessage);
+        assertEquals("How are you?", lastMessage.getContent());
+
+        // Hugo undoes his last message
         hugo.undoLastMessage();
 
-        assertEquals(
-                "Hello Luisa!",
-                hugo.getChatHistory().getLastSentMessage().getContent()
-        );
+        // Verify the previous message is still in history
+        Message afterUndo =
+                hugo.getChatHistory().getLastSentMessage();
 
+        assertNotNull(afterUndo);
+        assertEquals("Hello Luisa!", afterUndo.getContent());
     }
 }
