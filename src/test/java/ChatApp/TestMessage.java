@@ -31,4 +31,20 @@ public class TestMessage {
 
     }
 
+
+    @Test
+    public void testRestoreMemento() {
+        User hugo = new User("Hugo");
+        User luisa = new User("Luisa");
+        Message message = new Message(hugo, List.of(luisa), "Hello Luisa!");
+        MessageMemento memento = message.createMemento();
+
+        message.setContent("Goodbye Luisa!");
+        assertEquals("Goodbye Luisa!", message.getContent());
+
+        message.restore(memento);
+        assertEquals("Hello Luisa!", message.getContent());
+        assertEquals(memento.getTimestamp(), message.getTimestamp());
+    }
+
 }
