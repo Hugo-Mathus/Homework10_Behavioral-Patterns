@@ -159,4 +159,22 @@ public class TestChatServer {
     }
 
 
+    @Test
+    public void testUnregisteredSender() {
+        ChatServer server = new ChatServer();
+        User hugo = new User("Hugo", server);
+        TestRecipient luisa = new TestRecipient("Luisa", server);
+        server.registerUser(hugo);
+        server.registerUser(luisa);
+        // Hugo leaves the server
+        server.unregisterUser(hugo);
+        // Hugo attempts to send a message
+        hugo.sendMessage(List.of(luisa), "Hello Luisa!");
+        // Luisa should not receive anything
+        assertNull(luisa.receivedMessage);
+        // Hugo should not have a recorded sent message
+        assertNull(hugo.getChatHistory().getLastSentMessage());
+    }
+
+
 }
