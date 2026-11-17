@@ -3,7 +3,7 @@ package ChatApp;
 
 import org.junit.jupiter.api.Test;
 import java.util.List;
-
+import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestUser {
@@ -50,4 +50,33 @@ public class TestUser {
         assertDoesNotThrow(() -> hugo.undoLastMessage());
         assertNull(hugo.getChatHistory().getLastSentMessage());
     }
+
+
+    @Test
+    public void testUserIterator() {
+        ChatServer server = new ChatServer();
+
+        User hugo = new User("Hugo", server);
+        User luisa = new User("Luisa", server);
+        User krystal = new User("Krystal", server);
+
+        server.registerUser(hugo);
+        server.registerUser(luisa);
+        server.registerUser(krystal);
+
+        hugo.sendMessage(List.of(luisa), "Hello Luisa!");
+        hugo.sendMessage(List.of(krystal), "Hello Krystal!");
+        luisa.sendMessage(List.of(hugo), "Hi Hugo!");
+
+        Iterator<Message> iterator = hugo.iterator(luisa);
+
+        assertTrue(iterator.hasNext());
+        assertEquals("Hello Luisa!", iterator.next().getContent());
+
+        assertTrue(iterator.hasNext());
+        assertEquals("Hi Hugo!", iterator.next().getContent());
+
+        assertFalse(iterator.hasNext());
+    }
+
 }
