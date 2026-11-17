@@ -23,7 +23,12 @@ public class TestMessage {
         User hugo = new User("Hugo");
         User luisa = new User("Luisa");
         Message message = new Message(hugo, List.of(luisa), "Hello Luisa!");
-        assertNotNull(message.getTimestamp());
+
+        MessageMemento memento = message.createMemento();
+
+        assertEquals("Hello Luisa!", memento.getContent());
+        assertEquals(message.getTimestamp(), memento.getTimestamp());
+
     }
 
 }
