@@ -2,14 +2,20 @@ package ChatApp;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class ChatHistory {
+public class ChatHistory implements IterableByUser {
     private final User owner;
     private List<Message> messages;
 
     public ChatHistory(User owner) {
         this.owner = owner;
         this.messages = new ArrayList<>();
+    }
+
+    @Override
+    public Iterator iterator(User userToSearchWith) {
+        return new searchMessagesByUser(messages, userToSearchWith);
     }
 
     public void addMessage(Message message) {
