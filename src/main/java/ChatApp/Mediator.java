@@ -5,4 +5,5 @@ public interface Mediator {
     void unregisterUser(User user);
     void sendMessage(Message message);
     void blockUser(User user, User blockeUser);
+    void undoMessage(Message message);
 }

@@ -21,19 +21,17 @@ public class TestUser {
         hugo.sendMessage(List.of(luisa), "Hello Luisa!");
         hugo.sendMessage(List.of(luisa), "How are you?");
 
-        // Check the last message before undo
         assertEquals(
                 "How are you?",
                 hugo.getChatHistory().getLastSentMessage().getContent()
         );
 
-        // Undo the most recent message
         hugo.undoLastMessage();
 
-        // The previous message should now be the last sent
         assertEquals(
                 "Hello Luisa!",
                 hugo.getChatHistory().getLastSentMessage().getContent()
         );
+
     }
 }

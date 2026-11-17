@@ -44,6 +44,9 @@ public class ChatServer implements Mediator {
             recipient.receiveMessage(message);
             delivered = true;
         }
+        if (delivered) {
+            sender.receiveMessage(message);
+        }
     }
 
     @Override
@@ -66,5 +69,17 @@ public class ChatServer implements Mediator {
 
         return blockList.get(recipient).contains(sender);
     }
+
+    @Override
+    public void undoMessage(Message message) {
+        User sender = message.getSender();
+
+        sender.getChatHistory().removeMessage(message);
+
+        for (User recipient : message.getRecipients()) {
+            recipient.getChatHistory().removeMessage(message);
+        }
+    }
+
 
 }
