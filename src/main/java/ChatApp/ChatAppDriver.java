@@ -2,10 +2,10 @@
 package ChatApp;
 
 import java.util.List;
+import java.util.Iterator;
 
 public class ChatAppDriver {
     public static void main(String[] args) {
-
         ChatServer server = new ChatServer();
         User hugo = new User("Hugo", server);
         User luisa = new User("Luisa", server);
@@ -58,5 +58,21 @@ public class ChatAppDriver {
 
         System.out.println("\nKrystal's history after undo:");
         krystal.viewHistory();
+
+
+        System.out.println("\n===== ITERATOR PATTERN =====");
+        System.out.println("Hugo's messages involving Luisa:");
+
+        Iterator<Message> iterator = hugo.iterator(luisa);
+
+        while (iterator.hasNext()) {
+            Message message = iterator.next();
+
+            System.out.println(
+                    message.getSender().getUsername() +
+                            ": " + message.getContent()
+            );
+        }
+
     }
 }
