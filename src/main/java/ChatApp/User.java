@@ -1,9 +1,14 @@
 package ChatApp;
 
 public class User {
-    String Username;
-    Mediator mediator;
-    ChatHistory history;
+    private String username;
+    private Mediator mediator;
 
+    public User(String username){
+            this.username = username;
+    }
 
+    public String getUsername() {
+        return null;
+    }
 }
