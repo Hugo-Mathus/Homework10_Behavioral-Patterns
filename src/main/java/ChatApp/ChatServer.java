@@ -25,7 +25,20 @@ public class ChatServer implements Mediator {
 
     @Override
     public void sendMessage(Message message){
-
+        User sender = message.getSender();
+        if (!users.contains(sender)) {
+            return;
+        }
+        boolean delivered= false;
+        for (User recipient : message.getRecipients()) {
+            if (users.contains(recipient)) {
+                recipient.receiveMessage(message);
+                delivered = true;
+            }
+        }
+        if (delivered) {
+            sender.receiveMessage(message);
+        }
     }
 
     @Override

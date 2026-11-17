@@ -22,4 +22,12 @@ public class User {
         Message message = new Message(this, recipients, content);
         mediator.sendMessage(message);
     }
+
+    public void receiveMessage(Message message) {
+        history.addMessage(message);
+    }
+
+    public ChatHistory getChatHistory() {
+        return history;
+    }
 }
