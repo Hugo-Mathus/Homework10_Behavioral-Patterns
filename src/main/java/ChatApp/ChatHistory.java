@@ -29,4 +29,11 @@ public class ChatHistory {
     public void removeMessage(Message message) {
         messages.remove(message);
     }
+
+    public void displayHistory() {
+        for (Message message : messages) {
+            System.out.println(message.getSender().getUsername() + ": " + message.getContent());
+        }
+    }
+
 }

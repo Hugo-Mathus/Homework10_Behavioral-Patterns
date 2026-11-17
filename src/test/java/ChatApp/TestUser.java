@@ -39,4 +39,15 @@ public class TestUser {
         assertNotNull(afterUndo);
         assertEquals("Hello Luisa!", afterUndo.getContent());
     }
+
+    @Test
+    public void testUndoWithNoMessages() {
+        ChatServer server = new ChatServer();
+        User hugo = new User("Hugo", server);
+
+        server.registerUser(hugo);
+
+        assertDoesNotThrow(() -> hugo.undoLastMessage());
+        assertNull(hugo.getChatHistory().getLastSentMessage());
+    }
 }

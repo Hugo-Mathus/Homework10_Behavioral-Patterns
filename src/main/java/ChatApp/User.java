@@ -49,4 +49,10 @@ public class User {
     public ChatHistory getChatHistory() {
         return history;
     }
+
+
+    public void viewHistory() {
+        history.displayHistory();
+    }
+
 }
