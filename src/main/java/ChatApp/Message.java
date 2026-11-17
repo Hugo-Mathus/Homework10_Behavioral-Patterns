@@ -36,4 +36,13 @@ public class Message {
     public MessageMemento createMemento() {
         return new MessageMemento(content, timestamp);
     }
+
+    public void setContent(String content){
+        this.content = content;
+    }
+
+    public void restore(MessageMemento memento){
+        this.content = memento.getContent();
+        this.timestamp = memento.getTimestamp();
+    }
 }
