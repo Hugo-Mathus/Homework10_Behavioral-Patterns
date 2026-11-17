@@ -17,4 +17,5 @@ public class TestMessageMemento {
         assertEquals(content, memento.getContent());
         assertEquals(timestamp, memento.getTimestamp());
     }
+
 }

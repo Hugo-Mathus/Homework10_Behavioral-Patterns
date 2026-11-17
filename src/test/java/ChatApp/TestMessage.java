@@ -7,8 +7,9 @@ import java.util.List;
 public class TestMessage {
     @Test
     public void testMessage() {
-        User Hugo = new  User("Hugo");
-        User Luisa = new  User("Luisa");
+        ChatServer server = new ChatServer();
+        User Hugo = new  User("Hugo",server);
+        User Luisa = new  User("Luisa",server);
 
         Message message = new Message(Hugo,List.of(Luisa), "Hello Luisa!");
 
@@ -20,8 +21,9 @@ public class TestMessage {
 
     @Test
     public void testTimestamp() {
-        User hugo = new User("Hugo");
-        User luisa = new User("Luisa");
+        ChatServer server = new ChatServer();
+        User hugo = new User("Hugo",server);
+        User luisa = new User("Luisa",server);
         Message message = new Message(hugo, List.of(luisa), "Hello Luisa!");
 
         MessageMemento memento = message.createMemento();
@@ -34,8 +36,9 @@ public class TestMessage {
 
     @Test
     public void testRestoreMemento() {
-        User hugo = new User("Hugo");
-        User luisa = new User("Luisa");
+        ChatServer server = new ChatServer();
+        User hugo = new User("Hugo",server);
+        User luisa = new User("Luisa",server);
         Message message = new Message(hugo, List.of(luisa), "Hello Luisa!");
         MessageMemento memento = message.createMemento();
 
