@@ -33,4 +33,7 @@ public class Message {
         return timestamp;
     }
 
+    public MessageMemento createMemento() {
+        return new MessageMemento(content, timestamp);
+    }
 }
