@@ -8,6 +8,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestChatServer {
 
+    private static class TestRecipient extends User {
+        Message receivedMessage;
+
+        TestRecipient(String username, Mediator mediator) {
+            super(username, mediator);
+        }
+
+        @Override
+        public void receiveMessage(Message message) {
+            super.receiveMessage(message);
+            receivedMessage = message;
+        }
+    }
 
     @Test
     public void testSendMessage() {
@@ -100,5 +113,36 @@ public class TestChatServer {
         assertSame(luisa.receivedMessage, bob.receivedMessage);
     }
 
+
+    @Test
+    public void testBlockUser() {
+        ChatServer server = new ChatServer();
+        User hugo = new User("Hugo", server);
+        TestRecipient luisa = new TestRecipient("Luisa", server);
+        TestRecipient bob = new TestRecipient("Bob", server);
+
+        server.registerUser(hugo);
+        server.registerUser(luisa);
+        server.registerUser(bob);
+
+        // Luisa blocks Hugo
+        server.blockUser(luisa, hugo);
+
+        // Hugo sends a message to both users
+        hugo.sendMessage(
+                List.of(luisa, bob),
+                "Hello everyone!"
+        );
+
+        // Luisa should not receive it
+        assertNull(luisa.receivedMessage);
+
+        // Bob should receive it
+        assertNotNull(bob.receivedMessage);
+        assertEquals(
+                "Hello everyone!",
+                bob.receivedMessage.getContent()
+        );
+    }
 
 }
