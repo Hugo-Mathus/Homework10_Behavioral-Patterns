@@ -30,7 +30,7 @@ public class Message {
     }
 
     public LocalDateTime getTimestamp() {
-        return null;
+        return timestamp;
     }
 
 }
