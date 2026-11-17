@@ -13,14 +13,14 @@ public class ChatHistory {
     }
 
     public void addMessage(Message message) {
-        messages.add(null);
+        messages.add(message);
     }
 
     public Message getLastSentMessage() {
         for (int i = messages.size() - 1; i >= 0; i--) {
             Message message = messages.get(i);
             if (message.getSender() == owner) {
-                return null;
+                return message;
             }
         }
         return null;
