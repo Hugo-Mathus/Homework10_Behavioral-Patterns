@@ -36,4 +36,27 @@ public class TestSearchMessagesByUser {
 
         assertFalse(iterator.hasNext());
     }
+
+
+    @Test
+    public void testNoMatchingMessages() {
+        ChatServer server = new ChatServer();
+
+        User hugo = new User("Hugo", server);
+        User luisa = new User("Luisa", server);
+        User krystal = new User("Krystal", server);
+
+        ChatHistory history = new ChatHistory(hugo);
+
+        Message message = new Message(
+                hugo, List.of(luisa), "Hello Luisa!"
+        );
+
+        history.addMessage(message);
+
+        Iterator<Message> iterator = history.iterator(krystal);
+
+        assertFalse(iterator.hasNext());
+    }
+
 }
