@@ -16,7 +16,9 @@ public class ChatAppDriver {
         server.registerUser(krystal);
 
         System.out.println("===== SENDING MESSAGES =====");
-
+        System.out.println("Hugo to Luisa : Hello Luisa!");
+        System.out.println("Luisa to Hugo : Hi Hugo!");
+        System.out.println("Hugo to Luisa and Krystal : Hello everyone!");
         hugo.sendMessage(List.of(luisa), "Hello Luisa!");
         luisa.sendMessage(List.of(hugo), "Hi Hugo!");
         hugo.sendMessage(List.of(luisa, krystal), "Hello everyone!");
