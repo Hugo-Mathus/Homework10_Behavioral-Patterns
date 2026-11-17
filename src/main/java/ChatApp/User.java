@@ -9,6 +9,6 @@ public class User {
     }
 
     public String getUsername() {
-        return null;
+        return username;
     }
 }
