@@ -139,4 +139,24 @@ public class TestChatServer {
         );
     }
 
+
+    @Test
+    public void testUnregisterUser() {
+        ChatServer server = new ChatServer();
+
+        User hugo = new User("Hugo", server);
+        TestRecipient luisa = new TestRecipient("Luisa", server);
+
+        server.registerUser(hugo);
+        server.registerUser(luisa);
+
+        server.unregisterUser(luisa);
+
+        hugo.sendMessage(List.of(luisa), "Hello Luisa!");
+
+        assertNull(luisa.receivedMessage);
+        assertNull(hugo.getChatHistory().getLastSentMessage());
+    }
+
+
 }
