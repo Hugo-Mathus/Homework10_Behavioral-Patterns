@@ -18,15 +18,15 @@ public class Message {
     }
 
     public User getSender() {
-        return null;
+        return sender;
     }
 
     public List<User> getRecipients() {
-        return null;
+        return recipients;
     }
 
     public String getContent() {
-        return null;
+        return content;
     }
 
 }
