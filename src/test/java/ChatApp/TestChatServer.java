@@ -95,53 +95,47 @@ public class TestChatServer {
         }
 
         TestRecipient luisa = new TestRecipient("Luisa", server);
-        TestRecipient bob = new TestRecipient("Bob", server);
+        TestRecipient Krystal = new TestRecipient("Krystal", server);
 
         server.registerUser(hugo);
         server.registerUser(luisa);
-        server.registerUser(bob);
+        server.registerUser(Krystal);
 
-        hugo.sendMessage(List.of(luisa, bob), "Hello everyone!");
+        hugo.sendMessage(List.of(luisa, Krystal), "Hello everyone!");
 
         assertNotNull(luisa.receivedMessage);
-        assertNotNull(bob.receivedMessage);
+        assertNotNull(Krystal.receivedMessage);
 
         assertEquals("Hello everyone!", luisa.receivedMessage.getContent());
 
-        assertEquals("Hello everyone!", bob.receivedMessage.getContent());
+        assertEquals("Hello everyone!", Krystal.receivedMessage.getContent());
 
-        assertSame(luisa.receivedMessage, bob.receivedMessage);
+        assertSame(luisa.receivedMessage, Krystal.receivedMessage);
     }
 
 
     @Test
     public void testBlockUser() {
         ChatServer server = new ChatServer();
+
         User hugo = new User("Hugo", server);
         TestRecipient luisa = new TestRecipient("Luisa", server);
-        TestRecipient bob = new TestRecipient("Bob", server);
+        TestRecipient Krystal = new TestRecipient("Krystal", server);
 
         server.registerUser(hugo);
         server.registerUser(luisa);
-        server.registerUser(bob);
+        server.registerUser(Krystal);
 
         // Luisa blocks Hugo
         server.blockUser(luisa, hugo);
 
-        // Hugo sends a message to both users
-        hugo.sendMessage(
-                List.of(luisa, bob),
-                "Hello everyone!"
+        // Hugo sends a message to both recipients
+        hugo.sendMessage(List.of(luisa, Krystal),"Hello everyone!"
         );
 
-        // Luisa should not receive it
         assertNull(luisa.receivedMessage);
-
-        // Bob should receive it
-        assertNotNull(bob.receivedMessage);
-        assertEquals(
-                "Hello everyone!",
-                bob.receivedMessage.getContent()
+        assertNotNull(Krystal.receivedMessage);
+        assertEquals("Hello everyone!", Krystal.receivedMessage.getContent()
         );
     }
 
