@@ -7,16 +7,22 @@ import java.util.List;
 
 public class TestChatHistory {
 
+
     @Test
     public void testAddMessage() {
         ChatServer server = new ChatServer();
-        User hugo = new User("Hugo",server);
-        User luisa = new User("Luisa",server);
+        User hugo = new User("Hugo", server);
+        User luisa = new User("Luisa", server);
 
         ChatHistory history = new ChatHistory(hugo);
 
-        Message message = new Message(hugo,List.of(luisa),"Hello Luisa!");
+        Message message = new Message(
+                hugo, List.of(luisa), "Hello Luisa!"
+        );
 
+        history.addMessage(message);
+
+        assertSame(message, history.getLastSentMessage());
     }
 
 }
