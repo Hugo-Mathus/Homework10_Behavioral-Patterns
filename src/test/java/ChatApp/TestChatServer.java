@@ -61,5 +61,44 @@ public class TestChatServer {
     }
 
 
+    @Test
+    public void testMultipleRecipients() {
+        ChatServer server = new ChatServer();
+
+        User hugo = new User("Hugo", server);
+
+        class TestRecipient extends User {
+            Message receivedMessage;
+
+            TestRecipient(String username, Mediator mediator) {
+                super(username, mediator);
+            }
+
+            @Override
+            public void receiveMessage(Message message) {
+                super.receiveMessage(message);
+                receivedMessage = message;
+            }
+        }
+
+        TestRecipient luisa = new TestRecipient("Luisa", server);
+        TestRecipient bob = new TestRecipient("Bob", server);
+
+        server.registerUser(hugo);
+        server.registerUser(luisa);
+        server.registerUser(bob);
+
+        hugo.sendMessage(List.of(luisa, bob), "Hello everyone!");
+
+        assertNotNull(luisa.receivedMessage);
+        assertNotNull(bob.receivedMessage);
+
+        assertEquals("Hello everyone!", luisa.receivedMessage.getContent());
+
+        assertEquals("Hello everyone!", bob.receivedMessage.getContent());
+
+        assertSame(luisa.receivedMessage, bob.receivedMessage);
+    }
+
 
 }
