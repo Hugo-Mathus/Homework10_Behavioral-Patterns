@@ -29,4 +29,8 @@ public class Message {
         return content;
     }
 
+    public LocalDateTime getTimestamp() {
+        return null;
+    }
+
 }
